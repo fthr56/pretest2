@@ -1,5 +1,6 @@
 package com.kakaopay.ecotourism.model;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,8 @@ public class Region {
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private Set<Region> children;
 
+    @Builder
+    public Region(final String name) {
+        this.name = name;
+    }
 }

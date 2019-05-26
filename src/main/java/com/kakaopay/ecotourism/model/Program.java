@@ -1,5 +1,6 @@
 package com.kakaopay.ecotourism.model;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,14 @@ public class Program {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "Program_code")
-    private Set<Theme> theme;
+    private Set<Theme> themes;
 
+    @Builder
+    public Program(final String name, final String description, final String detailDescription, final Set<Region> regions, final Set<Theme> themes) {
+        this.name = name;
+        this.description = description;
+        this.detailDescription = detailDescription;
+        this.regions = regions;
+        this.themes = themes;
+    }
 }
