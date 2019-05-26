@@ -4,12 +4,8 @@ import com.kakaopay.ecotourism.model.Program;
 import com.kakaopay.ecotourism.model.Region;
 import com.kakaopay.ecotourism.model.Theme;
 import com.kakaopay.ecotourism.model.csv.EcoTourism;
-import com.kakaopay.ecotourism.repository.ProgramRepository;
-import com.kakaopay.ecotourism.repository.RegionRepository;
-import com.kakaopay.ecotourism.repository.ThemeRepository;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,9 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class FileService {
@@ -50,8 +44,8 @@ public class FileService {
         }
 
         for (EcoTourism ecotourism : ecoTourisms) {
-            Set<Region> regions = ecotourism.toRegion();
-            Set<Theme> themes = ecotourism.toTheme();
+            List<Region> regions = ecotourism.toRegions();
+            List<Theme> themes = ecotourism.toThemes();
 
             regions = regionService.create(regions);
             themes = themeService.create(themes);

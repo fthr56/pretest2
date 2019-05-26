@@ -7,8 +7,8 @@ import com.opencsv.bean.CsvBindByPosition;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,31 +28,31 @@ public class EcoTourism {
     @CsvBindByPosition(position = 5)
     String programDetailDescription;
 
-    public Set<Region> toRegion() {
+    public List<Region> toRegions() {
         String[] regionArr = this.regions.split(",");
-        Set<Region> regionSet = new HashSet<>();
+        List<Region> regionList = new ArrayList<>();
         for (String regionName : regionArr) {
             if (regionArr.length != 0) {
                 Region region = Region.builder().name(regionName).build();
-                regionSet.add(region);
+                regionList.add(region);
             }
         }
-        return regionSet;
+        return regionList;
     }
 
-    public Set<Theme> toTheme() {
+    public List<Theme> toThemes() {
         String[] themeArr = this.themes.split(",");
-        Set<Theme> themeSet = new HashSet<>();
+        List<Theme> themeList = new ArrayList<>();
         for (String themeName : themeArr) {
             if (themeArr.length != 0) {
                 Theme theme = Theme.builder().name(themeName).build();
-                themeSet.add(theme);
+                themeList.add(theme);
             }
         }
-        return themeSet;
+        return themeList;
     }
 
-    public Program toProgram(Set<Region> regions, Set<Theme> themes) {
+    public Program toProgram(List<Region> regions, List<Theme> themes) {
         return Program.builder()
                 .name(programName)
                 .description(programDescription)

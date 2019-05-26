@@ -4,7 +4,7 @@ import com.kakaopay.ecotourism.model.Theme;
 import com.kakaopay.ecotourism.repository.ThemeRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class ThemeService {
@@ -14,8 +14,7 @@ public class ThemeService {
         this.themeRepository = themeRepository;
     }
 
-    // TODO theme 저장 후 pk값 추가 된 Set 반환
-    public Set<Theme> create(final Set<Theme> themes) {
-        return null;
+    public List<Theme> create(final List<Theme> themes) {
+        return themeRepository.saveAll(themes);
     }
 }

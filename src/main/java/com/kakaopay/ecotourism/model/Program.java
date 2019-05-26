@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,14 +29,14 @@ public class Program {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "Program_code")
-    private Set<Region> regions;
+    private List<Region> regions;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "Program_code")
-    private Set<Theme> themes;
+    private List<Theme> themes;
 
     @Builder
-    public Program(final String name, final String description, final String detailDescription, final Set<Region> regions, final Set<Theme> themes) {
+    public Program(final String name, final String description, final String detailDescription, final List<Region> regions, final List<Theme> themes) {
         this.name = name;
         this.description = description;
         this.detailDescription = detailDescription;
