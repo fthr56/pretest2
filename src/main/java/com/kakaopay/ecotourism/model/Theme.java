@@ -1,6 +1,9 @@
 package com.kakaopay.ecotourism.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -20,6 +23,6 @@ public class Theme {
 
     @Builder
     public Theme(final String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 }

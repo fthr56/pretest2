@@ -30,14 +30,14 @@ public class Program {
     @Column
     private String description;
 
-    @Column
+    @Column(length = 500)
     private String detailDescription;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "Program_code")
     private List<Region> regions;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "Program_code")
     private List<Theme> themes;
 

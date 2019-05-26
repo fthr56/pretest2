@@ -1,10 +1,8 @@
 package com.kakaopay.ecotourism.model;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,20 +11,21 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString
 @Table(name = "region")
 public class Region {
     @Id
     @Column(name = "region_code", nullable = false, unique = true)
     @GeneratedValue(generator = "region-generator")
     @GenericGenerator(name = "region-generator",
-            parameters = @org.hibernate.annotations.Parameter(name = "prefix", value = "reg"),
+            parameters = @Parameter(name = "prefix", value = "reg"),
             strategy = "com.kakaopay.ecotourism.model.MyGenerator")
     private String code;
 
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "parent_code")
     private Region parent;
 
@@ -35,6 +34,6 @@ public class Region {
 
     @Builder
     public Region(final String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 }

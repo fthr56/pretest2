@@ -25,7 +25,7 @@ public class MyGenerator implements IdentifierGenerator, Configurable {
 
         Stream<String> ids = session.createQuery(query).stream();
 
-        Long max = ids.map(o -> o.replace(prefix, ""))
+        Long max = ids.map(o -> o.replace(prefix + "-", ""))
                 .mapToLong(Long::parseLong)
                 .max()
                 .orElse(0L);
