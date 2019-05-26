@@ -1,3 +1,13 @@
+## 개발 환경
+
+- Java 1.8
+- SpringBoot 2.1.5
+- lombok
+- h2
+- spring data jpa
+- [OpenCSV](https://www.baeldung.com/opencsv)
+
+
 ##기본문제
 
 - 데이터 파일에서 각 레코드를 데이터베이스에 저장하는 API
