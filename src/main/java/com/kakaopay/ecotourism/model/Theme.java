@@ -1,11 +1,17 @@
 package com.kakaopay.ecotourism.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Entity
+@Getter
+@NoArgsConstructor
+@EqualsAndHashCode
+@Table(name = "theme")
 public class Theme {
     @Id
     @GeneratedValue
