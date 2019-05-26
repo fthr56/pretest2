@@ -14,8 +14,8 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping("/csv")
-    public ResponseEntity uploadCsv(@RequestParam("files") MultipartFile multipartFile){
-        fileService.uploadCsv(multipartFile);
+    public ResponseEntity uploadCsv(@RequestParam("file") MultipartFile file) {
+        fileService.uploadCsv(file);
 
         return ResponseEntity.ok().build();
     }

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,6 +17,10 @@ import java.util.Set;
 public class Region {
     @Id
     @Column(name = "region_code", nullable = false, unique = true)
+    @GeneratedValue(generator = "region-generator")
+    @GenericGenerator(name = "region-generator",
+            parameters = @org.hibernate.annotations.Parameter(name = "prefix", value = "reg"),
+            strategy = "com.kakaopay.ecotourism.model.MyGenerator")
     private String code;
 
     @Column(nullable = false)

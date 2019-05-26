@@ -3,7 +3,7 @@ package com.kakaopay.ecotourism.service;
 import com.kakaopay.ecotourism.model.Program;
 import com.kakaopay.ecotourism.model.Region;
 import com.kakaopay.ecotourism.model.Theme;
-import com.kakaopay.ecotourism.model.csv.EcoTourism;
+import com.kakaopay.ecotourism.model.EcoTourism;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.slf4j.Logger;

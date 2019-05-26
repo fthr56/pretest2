@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +18,10 @@ import java.util.List;
 public class Program {
     @Id
     @Column(name = "Program_code", nullable = false, unique = true)
+    @GeneratedValue(generator = "program-generator")
+    @GenericGenerator(name = "program-generator",
+            parameters = @Parameter(name = "prefix", value = "prg"),
+            strategy = "com.kakaopay.ecotourism.model.MyGenerator")
     private String code;
 
     @Column(nullable = false)
