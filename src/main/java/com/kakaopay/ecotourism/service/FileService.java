@@ -45,16 +45,8 @@ public class FileService {
             logger.error(e.toString());
         }
 
-        for (EcoTourism ecotourism : ecoTourisms) {
-            List<Region> regions = ecotourism.toRegions();
-            List<Theme> themes = ecotourism.toThemes();
-
-            regions = regionService.create(regions);
-            themes = themeService.create(themes);
-
-            Program program = ecotourism.toProgram(regions, themes);
-
-            programService.create(program);
+        for (EcoTourism ecoTourism : ecoTourisms) {
+            programService.createEcoTourism(ecoTourism);
         }
 
     }

@@ -70,4 +70,13 @@ public class EcoTourism {
                 .regions(regions).themes(themes)
                 .build();
     }
+
+    public Program toProgram() {
+        return Program.builder()
+                .name(programName)
+                .description(programDescription)
+                .detailDescription(programDetailDescription)
+                .regions(toRegions()).themes(toThemes())
+                .build();
+    }
 }
