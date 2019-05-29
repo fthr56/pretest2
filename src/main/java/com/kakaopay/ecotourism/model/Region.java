@@ -1,10 +1,12 @@
 package com.kakaopay.ecotourism.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,11 +27,17 @@ public class Region {
     @Column(nullable = false)
     private String name;
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "regions")
+    @JsonIgnore
+    private List<Program> programs;
+
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "parent_code")
+    @JsonIgnore
     private Region parent;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Region> children;
 
     @Builder

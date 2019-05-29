@@ -32,4 +32,8 @@ public class RegionService {
 
         return regionList;
     }
+
+    public Region findRegion(final String id) {
+        return regionRepository.findById(id).get();
+    }
 }

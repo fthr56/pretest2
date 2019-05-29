@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 @Table(name = "program")
 public class Program {
     @Id
-    @Column(name = "Program_code", nullable = false, unique = true)
+    @Column(name = "program_code", nullable = false, unique = true)
     @GeneratedValue(generator = "program-generator")
     @GenericGenerator(name = "program-generator",
             parameters = @Parameter(name = "prefix", value = "prg"),
@@ -34,11 +35,15 @@ public class Program {
     private String detailDescription;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Program_code")
+    @JoinTable(name = "program_region",
+            joinColumns = @JoinColumn(name = "program_code"),
+            inverseJoinColumns = @JoinColumn(name = "region_code"))
     private List<Region> regions;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Program_code")
+    @JoinTable(name = "program_theme",
+            joinColumns = @JoinColumn(name = "program_code"),
+            inverseJoinColumns = @JoinColumn(name = "theme_id"))
     private List<Theme> themes;
 
     @Builder
@@ -48,5 +53,18 @@ public class Program {
         this.detailDescription = detailDescription;
         this.regions = regions;
         this.themes = themes;
+    }
+
+    public void update(final EcoTourism ecoTourism) {
+        if (!StringUtils.isEmpty(ecoTourism.getProgramName())) {
+            this.name = ecoTourism.getProgramName();
+        }
+        if (!StringUtils.isEmpty(ecoTourism.getProgramDescription())) {
+            this.description = ecoTourism.getProgramDescription();
+        }
+        if (!StringUtils.isEmpty(ecoTourism.getProgramDetailDescription())) {
+            this.detailDescription = ecoTourism.getProgramDetailDescription();
+        }
+
     }
 }

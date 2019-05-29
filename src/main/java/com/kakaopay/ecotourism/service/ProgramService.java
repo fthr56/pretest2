@@ -5,7 +5,6 @@ import com.kakaopay.ecotourism.model.Program;
 import com.kakaopay.ecotourism.model.Region;
 import com.kakaopay.ecotourism.model.Theme;
 import com.kakaopay.ecotourism.repository.ProgramRepository;
-import com.kakaopay.ecotourism.repository.RegionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,5 +37,16 @@ public class ProgramService {
 
         Program program = ecoTourism.toProgram(regions, themes);
         return create(program);
+    }
+
+    public Program update(final String id, final EcoTourism ecoTourism) {
+        Program program = programRepository.findById(id).get();
+        program.update(ecoTourism);
+        return create(program);
+    }
+
+    public List<Program> findProgramByRegionId(final String id) {
+        Region region = regionService.findRegion(id);
+        return region.getPrograms();
     }
 }

@@ -1,10 +1,7 @@
 package com.kakaopay.ecotourism.model;
 
 import com.opencsv.bean.CsvBindByPosition;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -12,6 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 public class EcoTourism {
     @CsvBindByPosition(position = 1)
