@@ -245,7 +245,7 @@ Body = {
 
 ---
 
-## 7. GET /api/v1/programs/recommend
+## 7. GET /api/v1/programs/recommends
 
 ### request
 

@@ -130,7 +130,7 @@ class ProgramControllerTest extends ControllerTestBase {
     public void recommendEcoTourismTest() throws Exception {
         String result = "{\"program\":\"prg-26\"}";
 
-        MvcResult mvcResult = this.mockMvc.perform(get("/api/v1/programs/recommend")
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/v1/programs/recommends")
                 .param("region", "경상남도 통영")
                 .param("keyword", "생태체")
                 .accept(MediaType.APPLICATION_JSON_UTF8))

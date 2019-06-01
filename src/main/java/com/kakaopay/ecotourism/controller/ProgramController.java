@@ -76,7 +76,7 @@ public class ProgramController {
         return ResponseEntity.ok(resBody);
     }
 
-    @GetMapping("/recommend")
+    @GetMapping("/recommends")
     public ResponseEntity recommendEcoTourism(ReqRecommend reqRecommend) {
         String regionName = reqRecommend.getRegion();
         String keyword = reqRecommend.getKeyword();

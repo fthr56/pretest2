@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -53,7 +52,6 @@ public class EcoTourism {
     }
 
     public List<Theme> toThemes() {
-        System.out.println("theme name : " + themes);
         String[] themeArr = this.themes.split(",");
         List<Theme> themeList = new ArrayList<>();
         for (String themeName : themeArr) {
@@ -62,7 +60,6 @@ public class EcoTourism {
                 themeList.add(theme);
             }
         }
-        System.out.println("list : " + themeList);
         return themeList;
     }
 
