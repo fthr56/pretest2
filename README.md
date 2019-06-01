@@ -2,38 +2,70 @@
 
 - Java 1.8
 - SpringBoot 2.1.5
-- lombok
-- h2
 - spring data jpa
-- [OpenCSV](https://www.baeldung.com/opencsv)
+- gradle
+- h2
+- junit5
+- lombok
+- OpenCSV
 
+## 문제해결 전략
 
-##기본문제
+- csv파일에서 데이터베이스 저장 시 OpenCSV를 사용하여 레코드를 읽어옴([baeldung: penCSV](https://www.baeldung.com/opencsv) 참고)
+- model
+    - Program 
+        - 프로그램에 대한 정보를 가짐(프로그램 코드, 프로그램명, 프로그램 소개, 프로그램 상세 소개)
+        - 지역(Region)과는 ManyToMany
+        - 테마(Theme)와는 ManyToMany
+        - PK인 프로그램 코드의 경우 커스텀 Generator 사용하여 자동 증가([baeldung: identifiers in Hibernate](https://www.baeldung.com/hibernate-identifiers) 참고)
+    - Region
+        - 지역에 대한 정보를 가짐(지역 코드, 지역명)
+            - 상/하위(Parent, Children으로 표현) 계층을 가짐 ex) 경기도 성남시 분당구 -> 성남시 기준 상위 : 경기도, 하위 : 분당구, **미구현**
+        - PK의 경우 커스텀 Generator로 자동 증가
+    - Theme
+        - 테마 정보를 가짐(테마별 분류)
+    - EcoTourism
+        - 생태 관광정보 데이터를 추가/수정할 수 있는 API 개발 시 csv 레코드와 같은 형태의 데이터를 가진다고 판단하고 구현
+            - csv 레코드와 마찬가지로 모든 필드가 String
+            - String 필드를 통해 Program, Region, Theme 생성
+                - Theme로 생성시 콤마, 빈 공간 처리로 잘못 된 테마 생성 방지 
+- 일부를 제외한 각 api에 대한 Request/Respose를 만들어 api 요청 처리
+- aService에서 b에 대한것이 필요한 경우 bRepository가 아닌 bService를 통한 처리
+- Post/Put 등 데이터베이스에 저장 된 데이터가 변경이 있는 테스트의 경우 @Transactional 추가
+- 선택문제(키워드를 통한 프로그램 추천)의 경우 우선순위 경합은 조회 지역에 한해서만 발생
+    - 검색한 지역 내의 프로그램으로만 추천 경합 진행
+    - 테마 : 30, 프로그램 소개 : 20, 상세 소개 : 10 의 가중치를 가진다.
+        - 추천 점수  = (각 텍스트에 키워드가 나온 횟수 * 가중치) 합산       
 
-- 데이터 파일에서 각 레코드를 데이터베이스에 저장하는 API
-- 생태 관광정보 데이터를 조회/추가/수정 API
-    - 조회는 서비스 지역 코드를 기준으로 검색
-- 생태 관광지 중 서비스 지역 컬럼에서 특정 지역에서 진행되는 프로그램명과 테마를 출력하는 API
-    - “평창군”이라는 문자열을 입력 받으면 아래와 같은 결과를 출력
-    - 출력 결과에 지역은 지역 코드
-- 생태 정보 데이터에 "프로그램 소개” 컬럼에서 특정 문자열이 포함된 레코드에서 서비스 지역 개수를 세어 출력하는 API
-    - 예를들어, “평창군”이라는 문자열을 입력 받으면 아래와 같은 결과를 출력
-- 모든 레코드에 프로그램 상세 정보를 읽어와서 입력 단어의 출현빈도수를 계산하여 출력 하는 API
+## 남은 사항
 
-## 선택 문제 (옵션)
+- 추가 제약사항(API 인증)
+- 다양한 테스트 케이슥(특히 실패하는 경우들)
+- Region의 경우 "경기도 성남시 분당구 삼평동"의 경우 하나의 지역으로 처리하는 점 보완
+    - Region 생성 시 도/시/군/구/그 외로 계층 구조를 가지게 하여 해결 필요
+    - Program과 매핑되는 건 최하위 노드
+- Request/Response의 구분을 좀 더 명확히하고 리팩토링을 필요
+- 너무 많은 역할을 담당하는 EcoTourism
+    - 역할 분리 필요
+    - Program과 경계가 모호한 감이 있음
+- ProgramController 분리
+- 예외처리 미약
+    - 커스텀 Exception 구현 필요
+    - GlobalExceptionHandler의 추가적인 Exception 발생 케이스 추가
+    - Optional의 제대로된 사용
+        - 마찬가지로 Null처리 보강 필요
 
-- 생태관광 정보를 기반으로 생태관광 프로그램을 추천해주려고 합니다. 지역명과 관광 키 워드를 입력받아 프로그램 코드를 출력하는 API 를 개발하세요.
-    - 단, 프로그램을 추천 시 키워드(keyword)를 텍스트와 비교하는 로직이 필요한 데, 테마 컬럼, 프로그램 소개 컬럼, 그리고 프로그램 상세 소개 컬럼을 모두 사 용하시고 가중치를 계산하는 로직이 포함되어야 합니다.
+## 실행 및 빌드
 
+```
+$ ./gradlew clean build
 
-## 추가 제약사항(옵션):
+$ java -jar build/libs/ecotourism-0.0.1.jar
+```
 
-- API 인증을 위해 JWT(Json Web Token)를 이용해서 Token 기반 API 호출 기능을 개발
-    - signup 계정 생성 API: 입력으로 ID, PW 받아 내부 DB 에 계정 저장하고 토큰 생성하여 출력
-        - 단, 패스워드는 인코딩하여 저장
-        - 단, 토큰은 특정 secret 으로 서명하여 생성
-    - signin 로그인 API: 입력으로 생성된 계정 (ID, PW)으로 로그인 요청하면 토큰을 발급
-    - refresh 토큰 재발급 API: 기존에 발급받은 토큰을 Authorization 헤더에 “Bearer Token”으로 입력 요청을 하면 토큰을 재발급
+- default profiles은 local(현재는 local만 존재)
+
+- 8080 포트 사용(localhost:8080)
 
 
 README.md 파일을 추가하여, 개발 프레임워크, 문제해결 전략, 빌드 및 실행 방법을기술하세요.
