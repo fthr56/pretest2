@@ -1,8 +1,5 @@
 package com.kakaopay.ecotourism.service;
 
-import com.kakaopay.ecotourism.model.Program;
-import com.kakaopay.ecotourism.model.Region;
-import com.kakaopay.ecotourism.model.Theme;
 import com.kakaopay.ecotourism.model.EcoTourism;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -23,13 +20,9 @@ import java.util.List;
 public class FileService {
     private final Logger logger = LoggerFactory.getLogger(FileService.class);
     private final ProgramService programService;
-    private final RegionService regionService;
-    private final ThemeService themeService;
 
-    public FileService(final ProgramService programService, final RegionService regionService, final ThemeService themeService) {
+    public FileService(final ProgramService programService) {
         this.programService = programService;
-        this.regionService = regionService;
-        this.themeService = themeService;
     }
 
     @Transactional
