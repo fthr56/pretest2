@@ -2,7 +2,6 @@ package com.kakaopay.ecotourism.service;
 
 import com.kakaopay.ecotourism.model.*;
 import com.kakaopay.ecotourism.repository.ProgramRepository;
-import jdk.nashorn.internal.runtime.events.RecompilationEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

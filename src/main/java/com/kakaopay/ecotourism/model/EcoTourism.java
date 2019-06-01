@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Getter
@@ -29,6 +30,9 @@ public class EcoTourism {
 
     @Builder
     public EcoTourism(final String programName, final String themes, final String regions, final String programDescription, final String programDetailDescription) {
+        if(StringUtils.isEmpty(themes)) {
+            throw new IllegalArgumentException();
+        }
         this.programName = programName;
         this.themes = themes;
         this.regions = regions;
@@ -49,14 +53,16 @@ public class EcoTourism {
     }
 
     public List<Theme> toThemes() {
+        System.out.println("theme name : " + themes);
         String[] themeArr = this.themes.split(",");
         List<Theme> themeList = new ArrayList<>();
         for (String themeName : themeArr) {
-            if (!StringUtils.isEmpty(themeName)) {
+            if (!StringUtils.isEmpty(themeName.trim())) {
                 Theme theme = Theme.builder().name(themeName).build();
                 themeList.add(theme);
             }
         }
+        System.out.println("list : " + themeList);
         return themeList;
     }
 
@@ -69,12 +75,4 @@ public class EcoTourism {
                 .build();
     }
 
-    public Program toProgram() {
-        return Program.builder()
-                .name(programName)
-                .description(programDescription)
-                .detailDescription(programDetailDescription)
-                .regions(toRegions()).themes(toThemes())
-                .build();
-    }
 }

@@ -7,7 +7,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.NoSuchElementException;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,13 +20,23 @@ class ProgramControllerTest extends ControllerTestBase {
     private EcoTourism ecoTourism;
 
     @Test
-    @DisplayName("생태 관광 프로그램 검색")
-    public void searchEcoTourism() throws Exception {
+    @DisplayName("생태 관광 프로그램 검색 성공")
+    public void searchEcoTourismTest1() throws Exception {
         this.mockMvc.perform(get("/api/v1/programs/{id}", "reg-2")
                 .accept(MediaType.APPLICATION_JSON_UTF8)
         )
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("생태 관광 프로그램 검색 실패")
+    public void searchEcoTourismTest2() throws Exception {
+            this.mockMvc.perform(get("/api/v1/programs/{id}", "reg22-2")
+                    .accept(MediaType.APPLICATION_JSON_UTF8)
+            )
+                    .andDo(print())
+                    .andExpect(status().is4xxClientError());
     }
 
     @Test

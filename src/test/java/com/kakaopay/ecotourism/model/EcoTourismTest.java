@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("EcoTourism class Test")
 class EcoTourismTest {
@@ -142,7 +143,18 @@ class EcoTourismTest {
         assertThat(themes).isEqualTo(expectedThemes);
     }
 
-    @DisplayName("")
+    @DisplayName("Theme에 빈값이 들어 올 경우")
+    @Test
+    public void toThemesTest2() {
+        regionString = ",강원도 오대산국립공원";
+        themeString = "";
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            getEcoTourism(regionString, themeString);
+        });
+    }
+
+    @DisplayName("toProgram 테스트")
     @Test
     public void toProgramTest() {
         regionString = ",강원도 오대산국립공원";
@@ -164,7 +176,6 @@ class EcoTourismTest {
 
         assertThat(program).isEqualTo(expectedProgram);
     }
-
 
     private EcoTourism getEcoTourism(String regions, String themes) {
         return EcoTourism.builder()

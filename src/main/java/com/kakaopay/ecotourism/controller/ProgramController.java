@@ -77,7 +77,7 @@ public class ProgramController {
     }
 
     @GetMapping("/recommend")
-    public ResponseEntity recommendEcoTourism(RequestRecommend requestRecommend){
+    public ResponseEntity recommendEcoTourism(RequestRecommend requestRecommend) {
         String regionName = requestRecommend.getRegion();
         String keyword = requestRecommend.getKeyword();
         Recommend recommend = programService.recommend(regionName, keyword);
