@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProgramService {
@@ -53,5 +54,15 @@ public class ProgramService {
     public List<Program> findProgramByRegionName(final String regionName) {
         Region region = regionService.findByregionName(regionName);
         return region.getPrograms();
+    }
+
+    public List<Program> searchDescriptionContainKeyword(String keyword) {
+        List<Program> programs = programRepository.findAll();
+
+        List<Program> keywordPrograms = programs.stream()
+                .filter(a -> a.descriptionContain(keyword))
+                .collect(Collectors.toList());
+
+        return keywordPrograms;
     }
 }

@@ -2,7 +2,9 @@ package com.kakaopay.ecotourism.controller;
 
 import com.kakaopay.ecotourism.model.EcoTourism;
 import com.kakaopay.ecotourism.model.Program;
+import com.kakaopay.ecotourism.request.RequestDescriptionKeyword;
 import com.kakaopay.ecotourism.request.RequestRegionProgram;
+import com.kakaopay.ecotourism.response.ResponseDescriptionProgram;
 import com.kakaopay.ecotourism.response.ResponseEcoTourism;
 import com.kakaopay.ecotourism.response.ResponseRegionProgram;
 import com.kakaopay.ecotourism.service.ProgramService;
@@ -53,5 +55,13 @@ public class ProgramController {
         List<Program> programs = programService.findProgramByRegionName(regionName);
         ResponseRegionProgram regionProgram = ResponseRegionProgram.programsToRegionProgram(regionName, programs);
         return ResponseEntity.ok(regionProgram);
+    }
+
+    @GetMapping("/descriptions")
+    public ResponseEntity searchDescriptionKeyword(RequestDescriptionKeyword descriptionKeyword) {
+        String keyword = descriptionKeyword.getKeyword();
+        List<Program> programs = programService.searchDescriptionContainKeyword(keyword);
+        ResponseDescriptionProgram descriptionProgram = ResponseDescriptionProgram.programsToResponseDescriptionProgram(keyword, programs);
+        return ResponseEntity.ok(descriptionProgram);
     }
 }

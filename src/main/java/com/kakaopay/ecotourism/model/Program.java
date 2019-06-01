@@ -10,6 +10,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -66,5 +67,14 @@ public class Program {
             this.detailDescription = ecoTourism.getProgramDetailDescription();
         }
 
+    }
+
+    public boolean descriptionContain(final String keyword) {
+        return description.contains(keyword);
+    }
+
+    public String getFullTheme(){
+        String fullTheme = themes.stream().map(Theme::getName).collect(Collectors.joining(","));
+        return fullTheme;
     }
 }

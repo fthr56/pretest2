@@ -1,5 +1,6 @@
 package com.kakaopay.ecotourism.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,8 +13,9 @@ import javax.persistence.*;
 @Table(name = "theme")
 public class Theme {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "theme_id")
+    @JsonIgnore
     private Long id;
 
     @Column(nullable = false)

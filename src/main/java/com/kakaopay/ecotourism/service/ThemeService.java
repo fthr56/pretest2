@@ -23,6 +23,7 @@ public class ThemeService {
 
         for (Theme theme : themes) {
             Optional<Theme> dbTheme = themeRepository.findByName(theme.getName());
+
             if (dbTheme.isPresent()) {
                 themeList.add(dbTheme.get());
             } else {

@@ -31,7 +31,7 @@ public class ControllerTestBase {
     private FileService fileService;
 
     protected void initData() throws IOException {
-        String fileDir = "data";
+        String fileDir = "data.sql";
         String fileName = "2017_national park_ ecotourism_information_UTF8.csv";
         String fileFullPath = String.format("%s/%s", fileDir, fileName);
         File file = new File(fileFullPath);

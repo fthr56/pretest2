@@ -27,11 +27,11 @@ public class ResponseRegionProgram {
         List<RegionProgram> regionPrograms = new ArrayList<>();
 
         for (Program program : programs) {
-            RegionProgram regionProgram = new RegionProgram(program.getName(), program.getThemes().toString());
+            RegionProgram regionProgram = new RegionProgram(program.getName(), program.getFullTheme());
             regionPrograms.add(regionProgram);
         }
 
-        ResponseRegionProgram responseRegionProgram =  ResponseRegionProgram.builder()
+        ResponseRegionProgram responseRegionProgram = ResponseRegionProgram.builder()
                 .region(regionName)
                 .programs(regionPrograms)
                 .build();
