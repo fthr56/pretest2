@@ -115,6 +115,22 @@ class ProgramControllerTest extends ControllerTestBase {
         assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo(result);
     }
 
+    @Test
+    @DisplayName("지역명과 관광 키 워드를 입력받아 프로그램 코드를 출력하는 API")
+    public void recommendEcoTourismTest() throws Exception {
+        String result = "{\"program\":\"prg-26\"}";
+
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/v1/programs/recommend")
+                .param("region", "경상남도 통영")
+                .param("keyword", "생태체")
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo(result);
+    }
+
 }
 
 

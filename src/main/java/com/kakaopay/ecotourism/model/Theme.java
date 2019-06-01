@@ -25,4 +25,8 @@ public class Theme {
     public Theme(final String name) {
         this.name = name.trim();
     }
+
+    public boolean containKeyword(final String keyword) {
+        return name.contains(keyword);
+    }
 }

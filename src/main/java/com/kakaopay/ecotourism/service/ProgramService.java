@@ -1,10 +1,8 @@
 package com.kakaopay.ecotourism.service;
 
-import com.kakaopay.ecotourism.model.EcoTourism;
-import com.kakaopay.ecotourism.model.Program;
-import com.kakaopay.ecotourism.model.Region;
-import com.kakaopay.ecotourism.model.Theme;
+import com.kakaopay.ecotourism.model.*;
 import com.kakaopay.ecotourism.repository.ProgramRepository;
+import jdk.nashorn.internal.runtime.events.RecompilationEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,5 +70,15 @@ public class ProgramService {
                 .mapToInt(a -> a.countDetailDescriptionContainKeyword(keyword))
                 .sum();
         return count;
+    }
+
+    public Recommend recommend(final String regionName, final String keyword) {
+        List<Program> programs = findProgramByRegionName(regionName);
+        List<Program> recommendPrograms = programs.stream().filter(a -> a.containRecommendKeyword(keyword)).collect(Collectors.toList());
+
+        List<Recommend> recommends = recommendPrograms.stream().map(Program::toRecommend).collect(Collectors.toList());
+        Recommend recommend = recommends.stream().max((a, b) -> a.compareRecommendPoint(keyword, b)).get();
+
+        return recommend;
     }
 }

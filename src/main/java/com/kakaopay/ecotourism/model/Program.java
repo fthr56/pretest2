@@ -73,16 +73,39 @@ public class Program {
         return description.contains(keyword);
     }
 
-    public String getFullTheme(){
-        String fullTheme = themes.stream().map(Theme::getName).collect(Collectors.joining(","));
+    public String getFullTheme() {
+        String fullTheme = getThemeNames();
         return fullTheme;
     }
 
-    public boolean containDetailDescription(String keyword){
+    private String getThemeNames() {
+        return themes.stream().map(Theme::getName).collect(Collectors.joining(","));
+    }
+
+    public boolean containDetailDescription(String keyword) {
         return detailDescription.contains(keyword);
     }
 
-    public int countDetailDescriptionContainKeyword(String keyword){
+    public int countDetailDescriptionContainKeyword(String keyword) {
         return StringUtils.countOccurrencesOf(detailDescription, keyword);
+    }
+
+    public boolean containRecommendKeyword(String keyword) {
+        if (description.contains(keyword)) {
+            return true;
+        }
+        if (detailDescription.contains(keyword)) {
+            return true;
+        }
+        return themes.stream().anyMatch(a -> a.containKeyword(keyword));
+    }
+
+    public Recommend toRecommend(){
+        return Recommend.builder()
+                .program(code)
+                .theme(getThemeNames())
+                .description(description)
+                .detailDescription(detailDescription)
+                .build();
     }
 }

@@ -2,7 +2,9 @@ package com.kakaopay.ecotourism.controller;
 
 import com.kakaopay.ecotourism.model.EcoTourism;
 import com.kakaopay.ecotourism.model.Program;
+import com.kakaopay.ecotourism.model.Recommend;
 import com.kakaopay.ecotourism.request.RequestKeyword;
+import com.kakaopay.ecotourism.request.RequestRecommend;
 import com.kakaopay.ecotourism.request.RequestRegionProgram;
 import com.kakaopay.ecotourism.response.ResponseDescriptionProgram;
 import com.kakaopay.ecotourism.response.ResponseDetailDescriptionKeyword;
@@ -72,5 +74,14 @@ public class ProgramController {
         int count = programService.countDetailDescriptionContainKeyword(keyword);
         ResponseDetailDescriptionKeyword resBody = new ResponseDetailDescriptionKeyword(keyword, count);
         return ResponseEntity.ok(resBody);
+    }
+
+    @GetMapping("/recommend")
+    public ResponseEntity recommendEcoTourism(RequestRecommend requestRecommend){
+        String regionName = requestRecommend.getRegion();
+        String keyword = requestRecommend.getKeyword();
+        Recommend recommend = programService.recommend(regionName, keyword);
+
+        return ResponseEntity.ok(recommend.toResponseRecommend());
     }
 }

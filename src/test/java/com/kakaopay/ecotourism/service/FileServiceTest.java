@@ -35,6 +35,7 @@ class FileServiceTest {
 
     @DisplayName("csv file을 통한 데이터 저장 테스트")
     @Test
+    @Transactional
     public void uploadFile() throws IOException {
         initRepository();
 
