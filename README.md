@@ -67,5 +67,4 @@ $ java -jar build/libs/ecotourism-0.0.1.jar
 
 - 8080 포트 사용(localhost:8080)
 
-
-README.md 파일을 추가하여, 개발 프레임워크, 문제해결 전략, 빌드 및 실행 방법을기술하세요.
+- [api 문서](document/api.md)
