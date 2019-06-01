@@ -14,7 +14,6 @@ import java.util.Map;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class ResDescriptionProgram {
     private String keyword;
     private List<DescriptionProgram> programs;

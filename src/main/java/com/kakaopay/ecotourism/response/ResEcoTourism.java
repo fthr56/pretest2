@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 public class ResEcoTourism {
     private String programName;
 
