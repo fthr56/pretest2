@@ -46,7 +46,12 @@ public class ProgramService {
     }
 
     public List<Program> findProgramByRegionId(final String id) {
-        Region region = regionService.findRegion(id);
+        Region region = regionService.findByRegionId(id);
+        return region.getPrograms();
+    }
+
+    public List<Program> findProgramByRegionName(final String regionName) {
+        Region region = regionService.findByregionName(regionName);
         return region.getPrograms();
     }
 }

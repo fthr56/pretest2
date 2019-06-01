@@ -33,7 +33,11 @@ public class RegionService {
         return regionList;
     }
 
-    public Region findRegion(final String id) {
+    public Region findByRegionId(final String id) {
         return regionRepository.findById(id).get();
+    }
+
+    public Region findByregionName(final String name) {
+        return regionRepository.findByName(name).get();
     }
 }

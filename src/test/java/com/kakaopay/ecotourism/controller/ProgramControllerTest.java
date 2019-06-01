@@ -72,4 +72,15 @@ class ProgramControllerTest extends ControllerTestBase {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    @DisplayName("지역 컬럼에서 특정 지역에서 진행되는 프로그램명과 테마를 출력")
+    public void searchRegionProgramTest() throws Exception {
+        this.mockMvc.perform(get("/api/v1/programs/regions")
+                .param("region", "평창군")
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+        )
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }

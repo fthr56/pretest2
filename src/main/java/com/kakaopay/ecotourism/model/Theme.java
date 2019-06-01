@@ -1,9 +1,6 @@
 package com.kakaopay.ecotourism.model;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,6 +8,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode
+@ToString(exclude = "id")
 @Table(name = "theme")
 public class Theme {
     @Id
