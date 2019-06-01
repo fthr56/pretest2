@@ -1,6 +1,6 @@
 package com.kakaopay.ecotourism.model;
 
-import com.kakaopay.ecotourism.response.ResponseRecommend;
+import com.kakaopay.ecotourism.response.ResRecommend;
 import lombok.Builder;
 import org.springframework.util.StringUtils;
 
@@ -40,7 +40,7 @@ public class Recommend {
         return Integer.compare(point, otherPoint);
     }
 
-    public ResponseRecommend toResponseRecommend() {
-        return new ResponseRecommend(program);
+    public ResRecommend toResponseRecommend() {
+        return new ResRecommend(program);
     }
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RequestKeyword {
+public class ReqRecommend {
+    private String region;
     private String keyword;
 }

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class ResponseEcoTourism {
+public class ResEcoTourism {
     private String programName;
 
     private List<Theme> themes;
@@ -27,7 +27,7 @@ public class ResponseEcoTourism {
     private String programDetailDescription;
 
     @Builder
-    public ResponseEcoTourism(final Program program) {
+    public ResEcoTourism(final Program program) {
         this.programName = program.getName();
         this.themes = program.getThemes();
         this.regions = program.getRegions();

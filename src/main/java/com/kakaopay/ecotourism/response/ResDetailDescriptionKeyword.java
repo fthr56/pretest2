@@ -1,5 +1,6 @@
 package com.kakaopay.ecotourism.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,10 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResponseRecommend {
-    private String program;
-
-    public ResponseRecommend(final String program) {
-        this.program = program;
-    }
+@AllArgsConstructor
+public class ResDetailDescriptionKeyword {
+    private String keyword;
+    private int count;
 }

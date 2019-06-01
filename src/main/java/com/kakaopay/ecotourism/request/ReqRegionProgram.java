@@ -9,6 +9,6 @@ import lombok.Setter;
 //@Getter
 //@NoArgsConstructor
 @Data
-public class RequestRegionProgram {
+public class ReqRegionProgram {
     private String region;
 }

@@ -3,13 +3,13 @@ package com.kakaopay.ecotourism.controller;
 import com.kakaopay.ecotourism.model.EcoTourism;
 import com.kakaopay.ecotourism.model.Program;
 import com.kakaopay.ecotourism.model.Recommend;
-import com.kakaopay.ecotourism.request.RequestKeyword;
-import com.kakaopay.ecotourism.request.RequestRecommend;
-import com.kakaopay.ecotourism.request.RequestRegionProgram;
-import com.kakaopay.ecotourism.response.ResponseDescriptionProgram;
-import com.kakaopay.ecotourism.response.ResponseDetailDescriptionKeyword;
-import com.kakaopay.ecotourism.response.ResponseEcoTourism;
-import com.kakaopay.ecotourism.response.ResponseRegionProgram;
+import com.kakaopay.ecotourism.request.ReqKeyword;
+import com.kakaopay.ecotourism.request.ReqRecommend;
+import com.kakaopay.ecotourism.request.ReqRegionProgram;
+import com.kakaopay.ecotourism.response.ResDescriptionProgram;
+import com.kakaopay.ecotourism.response.ResDetailDescriptionKeyword;
+import com.kakaopay.ecotourism.response.ResEcoTourism;
+import com.kakaopay.ecotourism.response.ResRegionProgram;
 import com.kakaopay.ecotourism.service.ProgramService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +30,14 @@ public class ProgramController {
     public ResponseEntity search(@PathVariable String id) {
         List<Program> programs = programService.findProgramByRegionId(id);
 
-        List<ResponseEcoTourism> responseEcoTourisms = new ArrayList<>();
+        List<ResEcoTourism> resEcoTourisms = new ArrayList<>();
         for (Program program : programs) {
-            ResponseEcoTourism responseEcoTourism = ResponseEcoTourism.builder()
+            ResEcoTourism resEcoTourism = ResEcoTourism.builder()
                     .program(program).build();
-            responseEcoTourisms.add(responseEcoTourism);
+            resEcoTourisms.add(resEcoTourism);
         }
 
-        return ResponseEntity.ok(responseEcoTourisms);
+        return ResponseEntity.ok(resEcoTourisms);
     }
 
     @PostMapping
@@ -53,33 +53,33 @@ public class ProgramController {
     }
 
     @GetMapping("/regions")
-    public ResponseEntity searchRegionProgram(RequestRegionProgram requestRegionProgram) {
-        String regionName = requestRegionProgram.getRegion();
+    public ResponseEntity searchRegionProgram(ReqRegionProgram reqRegionProgram) {
+        String regionName = reqRegionProgram.getRegion();
         List<Program> programs = programService.findProgramByRegionName(regionName);
-        ResponseRegionProgram regionProgram = ResponseRegionProgram.programsToRegionProgram(regionName, programs);
+        ResRegionProgram regionProgram = ResRegionProgram.programsToRegionProgram(regionName, programs);
         return ResponseEntity.ok(regionProgram);
     }
 
     @GetMapping("/descriptions")
-    public ResponseEntity searchDescriptionKeyword(RequestKeyword descriptionKeyword) {
+    public ResponseEntity searchDescriptionKeyword(ReqKeyword descriptionKeyword) {
         String keyword = descriptionKeyword.getKeyword();
         List<Program> programs = programService.searchDescriptionContainKeyword(keyword);
-        ResponseDescriptionProgram descriptionProgram = ResponseDescriptionProgram.programsToResponseDescriptionProgram(keyword, programs);
+        ResDescriptionProgram descriptionProgram = ResDescriptionProgram.programsToResponseDescriptionProgram(keyword, programs);
         return ResponseEntity.ok(descriptionProgram);
     }
 
     @GetMapping("/detail-descriptions")
-    public ResponseEntity searchDetailDescriptionKeyword(RequestKeyword detailDescriptionkeyword) {
+    public ResponseEntity searchDetailDescriptionKeyword(ReqKeyword detailDescriptionkeyword) {
         String keyword = detailDescriptionkeyword.getKeyword();
         int count = programService.countDetailDescriptionContainKeyword(keyword);
-        ResponseDetailDescriptionKeyword resBody = new ResponseDetailDescriptionKeyword(keyword, count);
+        ResDetailDescriptionKeyword resBody = new ResDetailDescriptionKeyword(keyword, count);
         return ResponseEntity.ok(resBody);
     }
 
     @GetMapping("/recommend")
-    public ResponseEntity recommendEcoTourism(RequestRecommend requestRecommend) {
-        String regionName = requestRecommend.getRegion();
-        String keyword = requestRecommend.getKeyword();
+    public ResponseEntity recommendEcoTourism(ReqRecommend reqRecommend) {
+        String regionName = reqRecommend.getRegion();
+        String keyword = reqRecommend.getKeyword();
         Recommend recommend = programService.recommend(regionName, keyword);
 
         return ResponseEntity.ok(recommend.toResponseRecommend());

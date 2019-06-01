@@ -15,21 +15,21 @@ import java.util.Map;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResponseDescriptionProgram {
+public class ResDescriptionProgram {
     private String keyword;
     private List<DescriptionProgram> programs;
 
     @Builder
-    public ResponseDescriptionProgram(final String keyword, final List<DescriptionProgram> programs) {
+    public ResDescriptionProgram(final String keyword, final List<DescriptionProgram> programs) {
         this.keyword = keyword;
         this.programs = programs;
     }
 
-    public static ResponseDescriptionProgram programsToResponseDescriptionProgram(String keyword, List<Program> programs) {
+    public static ResDescriptionProgram programsToResponseDescriptionProgram(String keyword, List<Program> programs) {
         Map<String, Integer> regionMap = getStringIntegerMap(programs);
         List<DescriptionProgram> tempPrograms = getPrograms(regionMap);
 
-        return ResponseDescriptionProgram.builder()
+        return ResDescriptionProgram.builder()
                 .keyword(keyword)
                 .programs(tempPrograms)
                 .build();

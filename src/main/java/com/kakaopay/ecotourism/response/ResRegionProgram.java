@@ -12,18 +12,18 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResponseRegionProgram {
+public class ResRegionProgram {
     private String region;
 
     private List<RegionProgram> programs;
 
     @Builder
-    public ResponseRegionProgram(final String region, final List<RegionProgram> programs) {
+    public ResRegionProgram(final String region, final List<RegionProgram> programs) {
         this.region = region;
         this.programs = programs;
     }
 
-    public static ResponseRegionProgram programsToRegionProgram(String regionName, List<Program> programs) {
+    public static ResRegionProgram programsToRegionProgram(String regionName, List<Program> programs) {
         List<RegionProgram> regionPrograms = new ArrayList<>();
 
         for (Program program : programs) {
@@ -31,12 +31,12 @@ public class ResponseRegionProgram {
             regionPrograms.add(regionProgram);
         }
 
-        ResponseRegionProgram responseRegionProgram = ResponseRegionProgram.builder()
+        ResRegionProgram resRegionProgram = ResRegionProgram.builder()
                 .region(regionName)
                 .programs(regionPrograms)
                 .build();
 
-        return responseRegionProgram;
+        return resRegionProgram;
 
     }
 }
