@@ -65,4 +65,12 @@ public class ProgramService {
 
         return keywordPrograms;
     }
+
+    public int countDetailDescriptionContainKeyword(final String keyword) {
+        List<Program> programs = programRepository.findAll();
+        int count = programs.stream()
+                .mapToInt(a -> a.countDetailDescriptionContainKeyword(keyword))
+                .sum();
+        return count;
+    }
 }

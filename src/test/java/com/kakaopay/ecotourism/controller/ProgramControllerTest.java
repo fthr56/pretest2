@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -27,6 +28,7 @@ class ProgramControllerTest extends ControllerTestBase {
 
     @Test
     @DisplayName("생태 관광 프로그램 추가")
+    @Transactional
     public void createEcoTourism() throws Exception {
         ecoTourism = EcoTourism.builder()
                 .programName("오대산국립공원 해피700!! 문화·생태 여행 두번째")
@@ -51,6 +53,7 @@ class ProgramControllerTest extends ControllerTestBase {
 
     @Test
     @DisplayName("생태 관광 프로그램 수정")
+    @Transactional
     public void updateEcoTourism() throws Exception {
         ecoTourism = EcoTourism.builder()
                 .programName("오대산국립공원 해피700!! 문화·생태 여행")
@@ -100,7 +103,7 @@ class ProgramControllerTest extends ControllerTestBase {
     @Test
     @DisplayName("모든 레코드에 프로그램 상세 정보를 읽어와서 입력 단어의 출현빈도수를 계산하여 출력")
     public void searchDetailDescriptionKeywordTest() throws Exception {
-        String result = "{\"keyword\":\"문화\",\"count\":20";
+        String result = "{\"keyword\":\"문화\",\"count\":59}";
 
         MvcResult mvcResult = this.mockMvc.perform(get("/api/v1/programs/detail-descriptions")
                 .param("keyword", "문화")

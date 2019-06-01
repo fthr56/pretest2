@@ -7,6 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RequestDescriptionKeyword {
+public class RequestKeyword {
     private String keyword;
 }

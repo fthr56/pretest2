@@ -77,4 +77,12 @@ public class Program {
         String fullTheme = themes.stream().map(Theme::getName).collect(Collectors.joining(","));
         return fullTheme;
     }
+
+    public boolean containDetailDescription(String keyword){
+        return detailDescription.contains(keyword);
+    }
+
+    public int countDetailDescriptionContainKeyword(String keyword){
+        return StringUtils.countOccurrencesOf(detailDescription, keyword);
+    }
 }
