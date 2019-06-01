@@ -64,4 +64,9 @@ public class ProgramController {
         ResponseDescriptionProgram descriptionProgram = ResponseDescriptionProgram.programsToResponseDescriptionProgram(keyword, programs);
         return ResponseEntity.ok(descriptionProgram);
     }
+
+    @GetMapping("/detail-descriptions")
+    public ResponseEntity searchDetailDescriptionKeyword(RequestDescriptionKeyword descriptionKeyword) {
+        return null;
+    }
 }

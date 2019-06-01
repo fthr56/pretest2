@@ -97,6 +97,21 @@ class ProgramControllerTest extends ControllerTestBase {
         assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo(result);
     }
 
+    @Test
+    @DisplayName("모든 레코드에 프로그램 상세 정보를 읽어와서 입력 단어의 출현빈도수를 계산하여 출력")
+    public void searchDetailDescriptionKeywordTest() throws Exception {
+        String result = "{\"keyword\":\"문화\",\"count\":20";
+
+        MvcResult mvcResult = this.mockMvc.perform(get("/api/v1/programs/detail-descriptions")
+                .param("keyword", "문화")
+                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        assertThat(mvcResult.getResponse().getContentAsString()).isEqualTo(result);
+    }
+
 }
 
 
